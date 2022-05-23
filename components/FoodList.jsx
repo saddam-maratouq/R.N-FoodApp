@@ -5,6 +5,8 @@ import React from 'react'
 import { FontAwesome } from '@expo/vector-icons';
 
 
+// width from inethial  Screen 
+
 
 const FoodList = ({item}) => { 
 
@@ -36,6 +38,7 @@ const FoodList = ({item}) => {
 
 const cardWidth = Dimensions.get('screen').width /2 -35
 
+
 export default FoodList
 
 const styles = StyleSheet.create({
@@ -61,14 +64,16 @@ const styles = StyleSheet.create({
     },
 
     mealContent : {
-        marginHorizontal:7,
+        marginHorizontal:10, 
         position:'absolute',
         top:100
     },
    
     foodTitle : {
         fontSize:22,
-        fontWeight:'bold' 
+        // fontWeight:'bold' 
+        fontFamily:"Ruboto-bold" ,
+        marginBottom:4
     }, 
     foodsubTitle :{
         fontSize:18,

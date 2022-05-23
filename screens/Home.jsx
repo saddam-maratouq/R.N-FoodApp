@@ -43,11 +43,11 @@ const Home = () => {
     <View style={styles.HomeContainer} >
     {/* //header  */}
     <View style={styles.headerContent} >
-      <Text style={{fontSize:23 , fontWeight:'bold'}} > Hello, joun  </Text> 
+      <Text style={{fontSize:23 , fontWeight:'bold' }} > Hello, joun  </Text> 
       <TouchableOpacity  
         onPress={() => navigation.openDrawer()}
-       >
-      <FontAwesome name="user-circle" size={35} color="gray" />
+       > 
+      <FontAwesome name="user-circle" size={35} color="gray" />  
       </TouchableOpacity>
     </View> 
     {/* search bar  */} 

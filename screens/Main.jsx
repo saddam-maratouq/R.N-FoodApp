@@ -46,13 +46,12 @@ const styles = StyleSheet.create({
         width:300,
         height:300, 
      },
-     TitleContent : {
-       
-     },
+    
      Tilte : {
        fontSize:40,
        paddingVertical:30,
-       fontWeight:'bold'
+       fontFamily:"Ruboto-bold" 
+       
      },
      SubTilte : {
        fontSize:20,
