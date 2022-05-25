@@ -3,12 +3,13 @@ import React from 'react'
 
 //icon 
 import { FontAwesome } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 // width from inethial  Screen 
 
 
-const FoodList = ({item}) => { 
+const FoodList = ({item  , addHandler }) => { 
 
     //width for card 
     
@@ -26,7 +27,10 @@ const FoodList = ({item}) => {
      <Text style={styles.foodsubTitle} >{ingredients}</Text>
      <View style={styles.priceCart} >
      <Text style={styles.price} >$ {price}</Text> 
+     <TouchableOpacity  onPress={ () => addHandler (item)} > 
+    
      <FontAwesome name="plus-circle" size={25} color="#F66B0E" />
+     </TouchableOpacity>
      </View>
      <View/>
     </View>

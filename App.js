@@ -3,7 +3,8 @@ import { StyleSheet, Text, View ,Image ,TouchableOpacity,Dimensions } from 'reac
 import MainRoute from './routes/MainRoute';
 import { useFonts } from "expo-font"; 
 
-
+import { Provider } from 'react-redux' 
+import store from './redux/store' 
 
 
 export default function App() {
@@ -21,7 +22,9 @@ export default function App() {
 
   return (
     <> 
+    <Provider store={store}  > 
    <MainRoute/>   
+    </Provider>
     </> 
    
   );

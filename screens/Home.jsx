@@ -2,10 +2,17 @@ import { StyleSheet, Text, View,Image
   ,TouchableOpacity,TextInput ,
   Dimensions , FlatList
 } from 'react-native'
-import React , {useEffect, useState} from  'react'
+
+
+import React , {useEffect, useState ,} from  'react'
+//redux logic
+import {useSelector , useDispatch} from 'react-redux'   
+import { addItem } from '../redux/CartSlice';
+
 
 //icon
 import { FontAwesome } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -19,6 +26,18 @@ const Home = () => {
 
 
   const navigation = useNavigation();
+
+  const dispatch = useDispatch() 
+
+  //state from redux 
+  // const  {Cart} = useSelector(state => state ) 
+  //   console.log(Cart) 
+
+
+    //val = all item from Api
+   const addHandler = (val) => {
+     dispatch(addItem(val)) 
+   }
 
 
   //Api 
@@ -42,8 +61,15 @@ const Home = () => {
   return (
     <View style={styles.HomeContainer} >
     {/* //header  */}
-    <View style={styles.headerContent} >
-      <Text style={{fontSize:23 , fontWeight:'bold' }} > Hello, joun  </Text> 
+    <View style={styles.headerContent} > 
+
+    <TouchableOpacity 
+        onPress={() => navigation.openDrawer()}
+     >
+    <Feather name="menu" size={24} color="black" />
+    </TouchableOpacity> 
+
+      <Text style={{fontSize:23 ,   fontFamily:'Ruboto-bold' }} > Hello, joun  </Text> 
       <TouchableOpacity  
         onPress={() => navigation.openDrawer()}
        > 
@@ -65,9 +91,9 @@ const Home = () => {
     <FlatList 
       data={result}
       renderItem={ ( {item }) => (
-          <FoodList  item={item}  />  
+          <FoodList addHandler={addHandler}  item={item}  />  
       ) }
-      numColumns={2} 
+      numColumns={2}  
     />
 
     </View>
@@ -99,7 +125,8 @@ const styles = StyleSheet.create({
         padding:11,
         marginHorizontal:20,
         justifyContent:'space-between',  
-        backgroundColor:'#FCFFE7' 
+        backgroundColor:'#FCFFE7' ,
+        elevation:13
     },
     iconStyle : {
         backgroundColor:'#F66B0E',
