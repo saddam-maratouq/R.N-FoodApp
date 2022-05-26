@@ -7,7 +7,7 @@ import { StyleSheet, Text, View,Image
 import React , {useEffect, useState ,} from  'react'
 //redux logic
 import {useSelector , useDispatch} from 'react-redux'   
-import { addItem } from '../redux/CartSlice';
+import { addItem , deleteItem } from '../redux/CartSlice';
 
 
 //icon
@@ -15,52 +15,65 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
-
 import axios from 'axios';
 import FoodList from '../components/FoodList';
+
 
 
 const Home = () => {
    
   const [result,SetReaslt] = useState([])  
 
+  const [clicked , SetClicked] = useState(true) 
+
 
   const navigation = useNavigation();
 
   const dispatch = useDispatch() 
 
-  //state from redux 
-  // const  {Cart} = useSelector(state => state ) 
-  //   console.log(Cart) 
-
-
-    //val = all item from Api
-   const addHandler = (val) => {
-     dispatch(addItem(val)) 
-   }
-
-
+  
+  
   //Api 
   const  fethData = async () => {
     const url = "https://mocki.io/v1/f022a486-6df1-45be-8454-7b96a224cccc" 
 
     let res = await axios.get(url) 
     let foodData = res.data.foods 
-
+    
     // console.log(foodData) 
     SetReaslt(foodData)
   }
+        //bring data from Api when app rerender 
+        useEffect(() => {  
+          fethData(); 
+        }, [])  
+  
+  
 
-    useEffect(() => { 
-      fethData(); 
-    }, []) 
-    
+
+  //val = all item from Api , function to Add food to cart 
+      const addHandler = async (val) => {
+        dispatch(addItem(val)) 
+        SetClicked(!clicked) 
+      
+      } 
 
 
+      
+
+     //function to remove food from Cart by Id 
+     const deleteHandler = (id) => {
+      dispatch(deleteItem(id))   
+    } 
+
+  
+
+
+  
 
   return (
     <View style={styles.HomeContainer} >
-    {/* //header  */}
+    {/* header  */}
     <View style={styles.headerContent} > 
 
     <TouchableOpacity 
@@ -85,13 +98,16 @@ const Home = () => {
          <View style={styles.iconStyle} > 
          <FontAwesome name="search" size={25} color="black" /> 
          </View> 
-
     </View> 
-
+    {/* List for food from Api  */} 
     <FlatList 
       data={result}
       renderItem={ ( {item }) => (
-          <FoodList addHandler={addHandler}  item={item}  />  
+          <FoodList 
+          clicked={clicked} 
+           addHandler={addHandler} 
+           deleteHandler={deleteHandler} 
+            item={item}  />  
       ) }
       numColumns={2}  
     />

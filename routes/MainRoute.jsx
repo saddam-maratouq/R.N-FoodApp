@@ -15,7 +15,9 @@ const Drawer = createDrawerNavigator();
 const MainRoute = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator screenOptions={{headerShown:false}} >
+      <Drawer.Navigator  initialRouteName="Home" screenOptions={{headerShown:false}} 
+     
+      >
         <Drawer.Screen name="Main" component={Main} />
         <Drawer.Screen name="Home" component={TabNav} /> 
         <Drawer.Screen name="Cart" component={Cart} />

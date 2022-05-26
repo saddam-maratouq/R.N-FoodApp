@@ -6,6 +6,8 @@ import { useFonts } from "expo-font";
 import { Provider } from 'react-redux' 
 import store from './redux/store' 
 
+//toast react native meesges
+
 
 export default function App() {
 
@@ -23,6 +25,7 @@ export default function App() {
   return (
     <> 
     <Provider store={store}  > 
+   
    <MainRoute/>   
     </Provider>
     </> 

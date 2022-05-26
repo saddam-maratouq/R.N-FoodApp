@@ -9,6 +9,9 @@ import Main from '../screens/Main';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Cart from '../screens/Cart';
 
+//redux
+import {useSelector , useDispatch} from 'react-redux'   
+
 
 
 const Tab = createBottomTabNavigator();
@@ -16,6 +19,10 @@ const Tab = createBottomTabNavigator();
 
 const TabNav = () => {
 
+  //Cart from redux to show quantety in the tabBarBadge 
+  const  cartItems  = useSelector(state => state.product.cartItem)  
+
+    const length = cartItems.length
    
       return (
         <Tab.Navigator
@@ -57,7 +64,7 @@ const TabNav = () => {
           {/* <Tab.Screen name="Main" component={Main} />  */}
           <Tab.Screen name="Home2" component={Home} />
           <Tab.Screen name="Cart" component={Cart} options={{
-               tabBarBadge: 3,  tabBarBadgeStyle : { backgroundColor:'#F66B0E'}
+               tabBarBadge: length  ,  tabBarBadgeStyle : { backgroundColor:'#F66B0E'}
           }} />
 
         </Tab.Navigator> 

@@ -1,22 +1,31 @@
-import { StyleSheet, Text, View , Image ,Dimensions } from 'react-native'
+import { StyleSheet, Text, View , Image ,Dimensions , TouchableOpacity } from 'react-native'
 import React from 'react'
 
 //icon 
 import { FontAwesome } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-// width from inethial  Screen 
 
 
-const FoodList = ({item  , addHandler }) => { 
 
-    //width for card 
+const FoodList = ({item  , addHandler , clicked , deleteHandler }) => { 
+
+  
     
-    const {Images,Mealname,ingredients,price} = item 
+    const {Images,Mealname,ingredients,price,id , } = item 
+
+    // console.log({id})  
+
+     const clickedId = id 
+
+
+      
+   
+
     return (
     <View style={styles.card} > 
-    <View style={{ alignItems:'center'}} > 
+    <View style={{ alignItems:'center'}} >  
     <Image 
      source={{uri:Images}} 
      style={styles.FoodImage} 
@@ -27,13 +36,27 @@ const FoodList = ({item  , addHandler }) => {
      <Text style={styles.foodsubTitle} >{ingredients}</Text>
      <View style={styles.priceCart} >
      <Text style={styles.price} >$ {price}</Text> 
+
+         
      <TouchableOpacity  onPress={ () => addHandler (item)} > 
     
-     <FontAwesome name="plus-circle" size={25} color="#F66B0E" />
-     </TouchableOpacity>
+     {/* <FontAwesome name="plus-circle" size={23} color="#F66B0E" /> */}
+     <FontAwesome name="cart-arrow-down" size={30} color="#F66B0E" />
+     </TouchableOpacity> 
+
+  
+        <TouchableOpacity  onPress={ () => deleteHandler (clickedId)} >  
+    
+        <FontAwesome name="remove" size={22} color="#F66B0E" />     
+        
+    </TouchableOpacity> 
+   
+    
+    
+   
      </View>
      <View/>
-    </View>
+    </View> 
 
 
     </View>
