@@ -12,6 +12,8 @@ import Cart from '../screens/Cart';
 //redux
 import {useSelector , useDispatch} from 'react-redux'   
 
+import Login from '../screens/Login';
+
 
 
 const Tab = createBottomTabNavigator();

@@ -20,7 +20,7 @@ export const CartSlice = createSlice({
     addItem: (state, action) => { 
       const tempProduct = { ...action.payload, itemQuantity : 1 } 
       state.cartItem.push(tempProduct);   
-     
+      // state.cartItem = itemAdded
     }, 
 
     deleteItem: (state, action) => { 
@@ -30,11 +30,28 @@ export const CartSlice = createSlice({
       // dont forget update state .... after removed 
       state.cartItem = filtration
       
-    }, 
+    },  
+    
+    IncreseQuantity: (state, action) => { 
+      
+    const Incresefilter = state.cartItem.filter
+    (c => c.id === action.payload.id ? (c.itemQuantity = action.payload.itemQuantity+1)  : c.itemQuantity )  
+   
+    // console.log(Incresefilter)  
+    
+    state.cartItem = Incresefilter  
+
+    },  
   }
-})
+})  
 
 // Action creators are generated for each case reducer function
-export const { addItem , deleteItem } = CartSlice.actions 
+export const { addItem , deleteItem , IncreseQuantity } = CartSlice.actions 
 
 export default CartSlice.reducer 
+
+
+
+//
+
+    

@@ -1,15 +1,18 @@
 import { StyleSheet, Text, View,Image , TouchableOpacity ,ScrollView} from 'react-native'
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react' 
 
 import { FontAwesome } from '@expo/vector-icons';
 
 
 import {useSelector , useDispatch} from 'react-redux'   
-import { addItem , deleteItem } from '../redux/CartSlice'; 
+import {deleteItem , IncreseQuantity } from '../redux/CartSlice'; 
 
 const CartItem = ({items}) => {
 
-  const {Images,price , Mealname, ingredients,itemQuantity}  = items 
+  
+
+
+  const {Images,price , Mealname, itemQuantity}  = items 
 
   const [ qty ,SetQty ] = useState(itemQuantity) 
 
@@ -22,8 +25,8 @@ const CartItem = ({items}) => {
 
   
   const increseQuntity = () => {  
-   SetQty( qty + 1  )
-    
+  
+    SetQty( qty + 1  )
   }
 
   const DecreseQuntity = () => {  
@@ -40,23 +43,40 @@ const CartItem = ({items}) => {
   // but you have notice redux logic 
   const deleteHandler = () => {  
       dispatch(deleteItem(clickedId)) 
-  }
+  } 
+
+
+  const handelIncreseQuantity = (val) => {  
+    
+    SetQty(qty +1 ) 
+   dispatch(IncreseQuantity(val,clickedId)) 
+  //  console.log('hello val',val)  
+  //  console.log('hello id',clickedId)   
+} 
+
+ 
+
+  
+  
+  
 
 
   return (
      
-   
+  <>  
     
-    <View style={styles.CartContainer} >
+    <View style={styles.CartContainer} > 
      <Image 
      source={{uri:Images}} 
      style={styles.FoodImage} 
+     resizeMode='contain'
      />  
      <View style={styles.quntityContent} > 
 
       {/* Increse press  */} 
+
      <TouchableOpacity 
-      onPress={increseQuntity}
+      onPress={()=>handelIncreseQuantity(qty)}   
      >  
     <FontAwesome name="plus-circle" size={22} color="#F66B0E" /> 
 
@@ -65,18 +85,20 @@ const CartItem = ({items}) => {
       <Text style={{ fontSize:18 , color:'gray' , marginHorizontal:5}} > {qty} </Text> 
 
       {/* Decrese press */}
+      
       <TouchableOpacity 
 
-      onPress={DecreseQuntity}
+      // onPress={DecreseQuntity} 
+      onPress=  {DecreseQuntity} 
       > 
-    <FontAwesome name="minus-circle" size={20} color="#F66B0E" />
+    <FontAwesome name="minus-circle" size={20} color="#F66B0E" /> 
 
       </TouchableOpacity> 
 
-     </View>
+     </View> 
 
-      <Text> {Mealname} </Text> 
-      <Text> $  {price} </Text>
+      <Text style={{ fontFamily:'Ruboto-regular', fontSize:15 }} > {Mealname} </Text>  
+      <Text> $ {price} </Text>
 
 
       <TouchableOpacity  onPress={deleteHandler} >  
@@ -86,7 +108,7 @@ const CartItem = ({items}) => {
     </TouchableOpacity>  
     </View>
    
-
+ </>
    
   )
 }
@@ -98,15 +120,14 @@ const styles = StyleSheet.create({
        justifyContent:'space-around',
        flexDirection:'row',
         alignItems:'center',
-        borderWidth:2,
+        borderWidth:1,
         borderColor:'gray'
-       
         
     },
 
     FoodImage : {
-        width:100,
-        height:100,
+        width:90,
+        height:90,
     }, 
 
     quntityContent : {

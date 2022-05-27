@@ -29,6 +29,7 @@ const FoodList = ({item  , addHandler , clicked , deleteHandler }) => {
     <Image 
      source={{uri:Images}} 
      style={styles.FoodImage} 
+     resizeMode='contain' 
      /> 
     </View> 
     <View style={styles.mealContent} >

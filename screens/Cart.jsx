@@ -1,5 +1,15 @@
-import { StyleSheet, Text, View , ScrollView,SafeAreaView,StatusBar} from 'react-native'
-import React , {useEffect}                                                                                                                                                                                                                                   from 'react'
+import { StyleSheet
+  ,Text, 
+  View 
+  , ScrollView,
+  SafeAreaView,
+  StatusBar,
+  TouchableOpacity,
+  ToastAndroid
+}
+   from 'react-native'
+ 
+import React , {useEffect,useState}   from 'react'                                                                                                                                                                                                                  
 
 import {useSelector , useDispatch} from 'react-redux'   
 import CartItem from '../components/CartItem'
@@ -7,14 +17,44 @@ import CartItem from '../components/CartItem'
 import { nanoid } from '@reduxjs/toolkit'
 
 
+
+
+
+
 const Cart = () => { 
 
   //state from redux 
   const  cartItems  = useSelector(state => state.product.cartItem)  
 
+  // console.log(cartItems) 
+
+  const [ total , SetTotal] = useState()     
+ 
+  const [ trashCart ,SetTrashCart ] = useState(cartItems) 
+
+  console.log(trashCart) 
 
 
+  //calc total quantity 
+  const  CalcTotal = () => {  
+    const totals =  cartItems.reduce((acc,item) =>  
+    (acc + item.price) * item.itemQuantity   , 0 )  
+
+    SetTotal(totals) 
+  } 
+  // 
   
+   useEffect(() => {
+    CalcTotal();
+   }, [cartItems]) 
+
+   // function  for toasty messges 
+   const paySubmit = async () => {
+    ToastAndroid.show('Successfully Payed  ', 
+    ToastAndroid.LONG)  
+   await SetTrashCart([]) 
+   } 
+
 
   return ( 
     
@@ -22,13 +62,17 @@ const Cart = () => {
     <ScrollView> 
    <View style={styles.container} > 
    
-    {/* ternery logic for show Item and cart empty Title */} 
+    {/* ternery logic for show Item and cart empty Title  */}
     
      {cartItems.length == 0 ?  
   
     (  <View> 
     
-      <Text style={{fontSize:30,fontFamily:'Ruboto-bold' , marginHorizontal:10 }} > your Cart is empty </Text>
+      <Text style={{fontSize:30,fontFamily:'Ruboto-bold' , marginHorizontal:10 }}
+      
+       > Your Cart is empty ....
+       
+        </Text>
       
       </View>  
     
@@ -37,6 +81,8 @@ const Cart = () => {
     : 
     
     (
+      
+
       cartItems.map(items  => (
       <View key={nanoid()} >
 
@@ -44,12 +90,26 @@ const Cart = () => {
       </View> 
      ))  
     )
+     
   } 
+
+    <Text style={{ fontSize:25, marginVertical:20  }} >  Curent Total : $ {total}</Text> 
+  
+    <TouchableOpacity 
+       onPress={paySubmit}
+     > 
+    <View  style={styles.payContent} > 
+    
+      <Text style={{ fontSize :20 , textAlign:'center' , color:'#fff' }}> Pay </Text>
+    </View>
+    </TouchableOpacity> 
+    
    </View>
     </ScrollView>
     </SafeAreaView>
   )
 }
+      
 
 export default Cart
 
@@ -66,4 +126,14 @@ const styles = StyleSheet.create({
       flex: 1,
       paddingTop: StatusBar.currentHeight,
     },
+
+    payContent : {
+       backgroundColor:'#F66B0E',
+       padding:10,
+       width:'30%',
+       marginHorizontal:10,
+      textAlign:'center', 
+      justifyContent:'center',
+      alignItems:'center', 
+    }
 })

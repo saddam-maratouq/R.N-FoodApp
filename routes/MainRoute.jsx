@@ -9,16 +9,19 @@ import Main from "../screens/Main";
 import Home from "../screens/Home";
 import TabNav from "./TabNav";
 import Cart from "../screens/Cart";
+import Login from "../screens/Login";
+
 
 const Drawer = createDrawerNavigator();
 
 const MainRoute = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator  initialRouteName="Home" screenOptions={{headerShown:false}} 
+      <Drawer.Navigator   screenOptions={{headerShown:false}} 
      
       >
         <Drawer.Screen name="Main" component={Main} />
+        <Drawer.Screen name="Login" component={Login} /> 
         <Drawer.Screen name="Home" component={TabNav} /> 
         <Drawer.Screen name="Cart" component={Cart} />
 

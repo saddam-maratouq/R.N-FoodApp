@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View,Image 
   ,TouchableOpacity,TextInput ,
-  Dimensions , FlatList
+  Dimensions , FlatList , ToastAndroid
 } from 'react-native'
 
 
@@ -34,8 +34,8 @@ const Home = () => {
   
   
   //Api 
-  const  fethData = async () => {
-    const url = "https://mocki.io/v1/f022a486-6df1-45be-8454-7b96a224cccc" 
+  const  fethData = async () => { 
+    const url = "https://mocki.io/v1/c2244c77-db98-4571-8447-e34ec0178b95"  
 
     let res = await axios.get(url) 
     let foodData = res.data.foods 
@@ -55,7 +55,9 @@ const Home = () => {
       const addHandler = async (val) => {
         dispatch(addItem(val)) 
         SetClicked(!clicked) 
-      
+
+        ToastAndroid.show('successfully Added to the cart ', 
+        ToastAndroid.SHORT)  
       } 
 
 
@@ -63,7 +65,9 @@ const Home = () => {
 
      //function to remove food from Cart by Id 
      const deleteHandler = (id) => {
-      dispatch(deleteItem(id))   
+      dispatch(deleteItem(id))  
+      ToastAndroid.show(' Removed from cart ',  
+      ToastAndroid.SHORT)   
     } 
 
   
@@ -110,6 +114,9 @@ const Home = () => {
             item={item}  />  
       ) }
       numColumns={2}  
+      showsVerticalScrollIndicator={false}
+      snapToAlignment={'start'}
+      decelerationRate={'fast'}
     />
 
     </View>

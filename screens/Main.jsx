@@ -23,7 +23,7 @@ const Main = () => {
 
   <View style={styles.butoonContent}>
     <TouchableOpacity 
-    onPress={() => navigation.navigate('Home') }
+    onPress={() => navigation.navigate('Login') }
      style={styles.butoon} >
       <Text style={{ textAlign:'center' , fontSize:18 , color:'#fff'}} > Get started  </Text>
     </TouchableOpacity> 
