@@ -1,4 +1,7 @@
-import { StyleSheet, Text, View, TextInput, Dimensions,Button ,TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TextInput, 
+  Dimensions,Button ,TouchableOpacity ,Alert ,ToastAndroid
+} 
+  from "react-native";
 
 
 import React , {useState} from "react";
@@ -7,27 +10,58 @@ import { useNavigation } from '@react-navigation/native';
 
 //icon
 import { FontAwesome } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../redux/userSlice";
 
 const Login = () => { 
+
+  const [name, setName] = useState('') 
+  const [pass, setPass] = useState('') 
+
+  
+  
 
     const [clicked,SetClicked ] = useState(true) 
 
      const navigation = useNavigation();
 
+     const dispatch = useDispatch() 
 
-    const ClickedLogin = () => {
-        SetClicked(!clicked) 
+
+      // const resetApp = () => {
+      //     setName('') 
+      // }
+
+    const ClickedLogin =  () => { 
+      
+      SetClicked(!clicked) 
+      // logic for Alow login 
+      if (name.length  >= 3 && pass.length > 4) {
+       
+        dispatch(addUser( {name} )) //warning must send name as obj    
         setTimeout(() => {
-            navigation.navigate('Home')
+            navigation.navigate('Home') 
         }, 2000);
+        setPass('')
+      }
+      else{
+        Alert.alert('Warning', 'your name or password must be longer',[
+          {text : 'Dont show again'} ,
+          {text : 'cancel'} ,
+          {text : 'ok'} ,
+        ]) 
+       
+      }
+       
     }
+
 
 
     const ClickedLogout = () => { 
         SetClicked(!clicked) 
         setTimeout(() => {
             navigation.navigate('Main')
-        }, 2000);
+        }, 1000);
     }
 
   return (
@@ -40,21 +74,30 @@ const Login = () => {
             textAlign: "center",
           }}
         >
-          Login
+          register
         </Text>
       </View>
 
       <View style={styles.InputContent}>
 
 
-        <TextInput placeholder="user name" style={styles.userName} />
+        <TextInput 
+        placeholder="user name" 
+        style={styles.userName} 
+        onChangeText={ (value) => setName(value)}
+        maxLength={12}
+        editable={true}
+        />
+
+
 
         <TextInput
-          placeholder="password"
+          placeholder="password (more than 4 !!)"
           style={styles.password}
           keyboardType='numbers-and-punctuation'
-          secureTextEntry={true} 
-          
+          secureTextEntry={true}   
+        onChangeText={ (value) => setPass(value)} 
+         maxLength={25}
         />
       </View> 
 
@@ -64,8 +107,8 @@ const Login = () => {
          
           (
               <View style={ styles.butoonContent }  > 
-             <TouchableOpacity style=
-             {{ backgroundColor:'#F66B0E'}} 
+             <TouchableOpacity 
+             style= {{ backgroundColor:'#F66B0E'}} 
              onPress={ClickedLogin}  
              > 
             
@@ -82,8 +125,8 @@ const Login = () => {
           :
           (
             <View style={ styles.butoonContent }  >
-            <TouchableOpacity style={{ backgroundColor:'#F66B0E'}} 
-             onPress={ClickedLogout} 
+            <TouchableOpacity style={{ backgroundColor:'red'}} 
+             onPress={ClickedLogout}  
              > 
              <Text style={styles.log} > Logout</Text>
              </TouchableOpacity>
@@ -98,9 +141,11 @@ const Login = () => {
   );
 };
 
+export default Login;
+
+
 const width = Dimensions.get("screen").width;
 
-export default Login;
 
 const styles = StyleSheet.create({
   container: {

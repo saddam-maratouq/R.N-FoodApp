@@ -30,16 +30,14 @@ const Cart = () => {
 
   const [ total , SetTotal] = useState()     
  
-  const [ trashCart ,SetTrashCart ] = useState(cartItems) 
+  
 
-  console.log(trashCart) 
+ 
 
 
   //calc total quantity 
   const  CalcTotal = () => {  
-    const totals =  cartItems.reduce((acc,item) =>  
-    (acc + item.price) * item.itemQuantity   , 0 )  
-
+    const totals =  cartItems.reduce((acc,item) =>   (acc + item.price) * item.itemQuantity   , 0 )  
     SetTotal(totals) 
   } 
   // 
@@ -48,11 +46,11 @@ const Cart = () => {
     CalcTotal();
    }, [cartItems]) 
 
-   // function  for toasty messges 
-   const paySubmit = async () => {
+   // function  for toast messges 
+   const paySubmit =  () => {
     ToastAndroid.show('Successfully Payed  ', 
     ToastAndroid.LONG)  
-   await SetTrashCart([]) 
+ 
    } 
 
 

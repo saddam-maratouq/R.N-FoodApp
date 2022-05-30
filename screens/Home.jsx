@@ -22,14 +22,23 @@ import FoodList from '../components/FoodList';
 
 const Home = () => {
    
+  //state from redux to show name 
+  const nameState = useSelector(state => state.user.name)  
+
+  console.log(nameState) 
+  
+
+  const navigation = useNavigation();
+  
   const [result,SetReaslt] = useState([])  
 
   const [clicked , SetClicked] = useState(true) 
 
 
-  const navigation = useNavigation();
-
   const dispatch = useDispatch() 
+
+
+   
 
   
   
@@ -56,8 +65,8 @@ const Home = () => {
         dispatch(addItem(val)) 
         SetClicked(!clicked) 
 
-        ToastAndroid.show('successfully Added to the cart ', 
-        ToastAndroid.SHORT)  
+        // ToastAndroid.show('successfully Added to the cart ', 
+        // ToastAndroid.SHORT)  
       } 
 
 
@@ -66,8 +75,8 @@ const Home = () => {
      //function to remove food from Cart by Id 
      const deleteHandler = (id) => {
       dispatch(deleteItem(id))  
-      ToastAndroid.show(' Removed from cart ',  
-      ToastAndroid.SHORT)   
+      // ToastAndroid.show(' Removed from cart ',  
+      // ToastAndroid.SHORT)   
     } 
 
   
@@ -86,7 +95,7 @@ const Home = () => {
     <Feather name="menu" size={24} color="black" />
     </TouchableOpacity> 
 
-      <Text style={{fontSize:23 ,   fontFamily:'Ruboto-bold' }} > Hello, joun  </Text> 
+      <Text style={{fontSize:23 ,   fontFamily:'Ruboto-bold' }} > Hello, {nameState}  </Text> 
       <TouchableOpacity  
         onPress={() => navigation.openDrawer()}
        > 
@@ -97,7 +106,7 @@ const Home = () => {
     <View  style={styles.searchInput}> 
         <TextInput 
             placeholder='Are you hungry   ?'
-            style={{fontSize:18}}
+            style={{fontSize:20}}
          />
          <View style={styles.iconStyle} > 
          <FontAwesome name="search" size={25} color="black" /> 

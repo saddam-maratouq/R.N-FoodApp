@@ -6,7 +6,6 @@ import { NavigationContainer } from "@react-navigation/native";
 
 //screens
 import Main from "../screens/Main";
-import Home from "../screens/Home";
 import TabNav from "./TabNav";
 import Cart from "../screens/Cart";
 import Login from "../screens/Login";
