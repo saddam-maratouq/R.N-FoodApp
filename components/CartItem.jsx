@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 
 import {useSelector , useDispatch} from 'react-redux'   
-import {deleteItem , changeQuantity } from '../redux/CartSlice'; 
+import {deleteItem , increseQuantity , decresrQuantity } from '../redux/CartSlice'; 
 
 import NumericInput from 'react-native-numeric-input' 
 
@@ -17,11 +17,11 @@ const CartItem = ({items}) => {
 
   const {Images,price , Mealname, itemQuantity}  = items 
 
-  // const [ qty ,SetQty ] = useState(itemQuantity) 
+  
 
    const [quanteity, setQuanteity] = useState(itemQuantity)
   
-  //  console.log(quanteity)
+ 
 
   const dispatch = useDispatch() 
 
@@ -29,43 +29,42 @@ const CartItem = ({items}) => {
   const clickedId = items.id  
 
   
- 
 
-//   const DecreseQuntity = () => {  
-   
-//     if (qty == 0 ) {
-//       SetQty(qty) 
-//     }
-//     else {  
-//       SetQty( qty -  1  )
-//     }
-// }
 
   // you can pass item or id the same logic 
-  // but you have notice redux logic 
+  // but you have notice redux payload 
   const deleteHandler = () => {  
       dispatch(deleteItem(clickedId)) 
   } 
 
 
-  const handelIncreseQuantity = (val,id) => {  
+  // for Increse quantity by redux 
+  const handelIncreseQuantity = (val) => {  
 
-    // const values = Number(value)
-    setQuanteity( quanteity + 1 ) 
-    dispatch(changeQuantity (val , id)) 
-    console.log('hello Quantity',val)  
-    console.log('hello Id', id) 
+    // const result =  setQuanteity(val +1 ) 
+    dispatch(increseQuantity ({  val  , clickedId}))   
+    console.log('hello Quantity',val)   
+    console.log('hello Id', clickedId)  
  } 
 
  
+
+  // for Deccrese quantity by redux 
  
-  
-  
-  
+ const handelDecreseQuantity = (val) => {  
 
-
-  return (
-     
+  if ( val < 0) {
+    return val
+  }
+  // decrese action 
+  dispatch(decresrQuantity ({  val  , clickedId}))  
+  console.log('hello Quantity',val)   
+  console.log('hello Id', clickedId)  
+} 
+  
+   
+ 
+  return ( 
   <>  
 {/* <NumericInput value={this.state.value} onChange={value => this.setState({value})} /> */}
 
@@ -79,22 +78,11 @@ const CartItem = ({items}) => {
      />  
      <View style={styles.quntityContent} > 
 
-      {/* Increse press  */} 
-
     
-   {/* <NumericInput value={quanteity} 
-     totalWidth={60} 
-     totalHeight={40}  
-     rightButtonBackgroundColor='#F66B0E' 
-     leftButtonBackgroundColor='#F66B0E'
-     onChange={value => handelQuantity(value)}   
-   />  */}
-
-  
       {/* Increse press  */} 
 
       <TouchableOpacity 
-      onPress={()=>handelIncreseQuantity(quanteity,clickedId)}   
+      onPress={()=>handelIncreseQuantity(quanteity)}   
      >  
     <FontAwesome name="plus-circle" size={22} color="#F66B0E" /> 
 
@@ -107,7 +95,8 @@ const CartItem = ({items}) => {
       <TouchableOpacity 
 
       // onPress={DecreseQuntity} 
-      onPress=  {()=>console.log('decrese')} 
+
+      onPress=  {()=>handelDecreseQuantity(quanteity) }  
       > 
     <FontAwesome name="minus-circle" size={20} color="#F66B0E" /> 
 

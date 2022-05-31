@@ -3,13 +3,14 @@ import { StyleSheet, Text, View, TextInput,
 } 
   from "react-native";
 
-
-import React , {useState} from "react";
-
-import { useNavigation } from '@react-navigation/native';
-
-//icon
+//  navigation 
+  import { useNavigation } from '@react-navigation/native';
+  
+  //icon
 import { FontAwesome } from "@expo/vector-icons";
+import { Feather } from '@expo/vector-icons';
+  //redux -react
+import React , {useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../redux/userSlice";
 
@@ -34,15 +35,14 @@ const Login = () => {
 
     const ClickedLogin =  () => { 
       
-      SetClicked(!clicked) 
       // logic for Alow login 
       if (name.length  >= 3 && pass.length > 4) {
-       
+        SetClicked(!clicked) 
         dispatch(addUser( {name} )) //warning must send name as obj    
         setTimeout(() => {
             navigation.navigate('Home') 
-        }, 2000);
-        setPass('')
+        }, 1000);
+       
       }
       else{
         Alert.alert('Warning', 'your name or password must be longer',[
@@ -124,6 +124,11 @@ const Login = () => {
           )   
           :
           (
+
+          
+           
+                     
+           
             <View style={ styles.butoonContent }  >
             <TouchableOpacity style={{ backgroundColor:'red'}} 
              onPress={ClickedLogout}  
@@ -131,6 +136,7 @@ const Login = () => {
              <Text style={styles.log} > Logout</Text>
              </TouchableOpacity>
           </View>
+         
           )
          
           } 
@@ -184,22 +190,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   butoonContent : {
-    //   justifyContent:'center',
-    //   alignItems:'center',
    padding:30,
   width:width,
   position:'absolute',
   top:500,
-  
-//   height:200
+
   },
+  
+ 
+
   log : {
     textAlign:'center' , 
     color:'#fff', 
     fontSize:20,
     padding:20 ,
     fontWeight:'bold',
-   
-
   }
 });

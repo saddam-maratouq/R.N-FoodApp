@@ -95,7 +95,7 @@ const Home = () => {
     <Feather name="menu" size={24} color="black" />
     </TouchableOpacity> 
 
-      <Text style={{fontSize:23 ,   fontFamily:'Ruboto-bold' }} > Hello, {nameState}  </Text> 
+      <Text style={{fontSize:23 ,   fontFamily:'Ruboto-bold' }} > Hello  {nameState}  </Text> 
       <TouchableOpacity  
         onPress={() => navigation.openDrawer()}
        > 
