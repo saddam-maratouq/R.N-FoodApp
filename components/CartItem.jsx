@@ -58,8 +58,8 @@ const CartItem = ({items}) => {
   }
   // decrese action 
   dispatch(decresrQuantity ({  val  , clickedId}))  
-  console.log('hello Quantity',val)   
-  console.log('hello Id', clickedId)  
+  // console.log('hello Quantity',val)   
+  // console.log('hello Id', clickedId)  
 } 
   
    

@@ -79,7 +79,7 @@ const Login = () => {
       </View>
 
       <View style={styles.InputContent}>
-
+      
 
         <TextInput 
         placeholder="user name" 
@@ -88,11 +88,11 @@ const Login = () => {
         maxLength={12}
         editable={true}
         />
-
+      
 
 
         <TextInput
-          placeholder="password (more than 4 !!)"
+          placeholder="password"
           style={styles.password}
           keyboardType='numbers-and-punctuation'
           secureTextEntry={true}   
@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 200,
+   
   },
   userName: {
     borderWidth: 1,
@@ -178,6 +179,7 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderRadius: 10,
     fontSize: 20,
+  
   },
 
   password: {

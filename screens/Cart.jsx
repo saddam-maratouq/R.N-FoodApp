@@ -10,14 +10,16 @@ import { StyleSheet
    from 'react-native'
  
 import React , {useEffect,useState}   from 'react'                                                                                                                                                                                                                  
-
 import {useSelector , useDispatch} from 'react-redux'   
-import CartItem from '../components/CartItem'
-
 import { nanoid } from '@reduxjs/toolkit'
 
+import CartItem from '../components/CartItem' 
 
+//navigation 
+import { useNavigation } from '@react-navigation/native';
 
+//icon
+import { Feather } from '@expo/vector-icons';
 
 
 
@@ -31,13 +33,14 @@ const Cart = () => {
   const [ total , SetTotal] = useState()     
  
   
-
+  const navigation = useNavigation(); 
+ 
  
 
 
   //calc total quantity 
   const  CalcTotal = () => {  
-    const totals =  cartItems.reduce((acc,item) =>   (acc + item.price) * item.itemQuantity   , 0 )  
+    const totals =  cartItems.reduce((acc,item) =>   acc + (item.price * item.itemQuantity)   , 0 )  
     SetTotal(totals) 
   } 
   // 
@@ -59,12 +62,24 @@ const Cart = () => {
     <SafeAreaView style={styles.containers} > 
     <ScrollView> 
    <View style={styles.container} > 
+
+     <View style={styles.menuIcon} >  
+      <TouchableOpacity 
+        onPress={() => navigation.openDrawer()}
+     >
+    <Feather name="menu" size={24} color="black" />
+    
+     </TouchableOpacity> 
+
+     </View>  
    
     {/* ternery logic for show Item and cart empty Title  */}
     
      {cartItems.length == 0 ?  
   
     (  <View> 
+      
+
     
       <Text style={{fontSize:30,fontFamily:'Ruboto-bold' , marginHorizontal:10 }}
       
@@ -115,7 +130,7 @@ const styles = StyleSheet.create({
     container : {
         flex:1,
         justifyContent:'flex-start',
-        paddingVertical:100,
+        paddingVertical:50,
 
     } ,
 
@@ -123,6 +138,12 @@ const styles = StyleSheet.create({
       flex: 1,
       paddingTop: StatusBar.currentHeight,
     },
+
+    menuIcon : {
+      alignItems:'flex-start' ,
+       paddingBottom:50 , 
+       marginHorizontal:20
+    } , 
 
     payContent : {
        backgroundColor:'#F66B0E',

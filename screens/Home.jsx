@@ -25,7 +25,6 @@ const Home = () => {
   //state from redux to show name 
   const nameState = useSelector(state => state.user.name)  
 
-  console.log(nameState) 
   
 
   const navigation = useNavigation();
@@ -52,21 +51,22 @@ const Home = () => {
     // console.log(foodData) 
     SetReaslt(foodData)
   }
-        //bring data from Api when app rerender 
-        useEffect(() => {  
-          fethData(); 
-        }, [])  
+  
+  //bring data from Api when app rerender 
+  useEffect(() => {  
+    fethData(); 
+  }, [])  
   
   
 
 
   //val = all item from Api , function to Add food to cart 
-      const addHandler = async (val) => {
+      const addHandler =  (val) => {
         dispatch(addItem(val)) 
         SetClicked(!clicked) 
 
-        // ToastAndroid.show('successfully Added to the cart ', 
-        // ToastAndroid.SHORT)  
+        ToastAndroid.show('successfully Added to the cart ', 
+        ToastAndroid.SHORT)  
       } 
 
 
@@ -75,13 +75,13 @@ const Home = () => {
      //function to remove food from Cart by Id 
      const deleteHandler = (id) => {
       dispatch(deleteItem(id))  
-      // ToastAndroid.show(' Removed from cart ',  
-      // ToastAndroid.SHORT)   
+      ToastAndroid.show(' Removed from cart ',  
+      ToastAndroid.SHORT)   
     } 
 
-  
+    
 
-
+ 
   
 
   return (
@@ -109,7 +109,7 @@ const Home = () => {
             style={{fontSize:20}}
          />
          <View style={styles.iconStyle} > 
-         <FontAwesome name="search" size={25} color="black" /> 
+         <FontAwesome name="search" size={25} color="#fff" /> 
          </View> 
     </View> 
     {/* List for food from Api  */} 
@@ -133,6 +133,9 @@ const Home = () => {
 }
 
 export default Home
+
+
+
 
 const styles = StyleSheet.create({
     HomeContainer : {
