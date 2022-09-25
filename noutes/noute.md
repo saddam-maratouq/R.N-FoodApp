@@ -1,12 +1,13 @@
-#info : 
+#Main resorce for : Mix screen ( Darwer + tabNav + stack )
 
-you can Add view inside screen navigatoer  to give icon some +  style like postion top for another icon ... 
+=> https://www.youtube.com/watch?v=z7wZSA176kE&t=1929s
 
+#info :
 
-qustion ?? 
-when make decrese if val < 0  ?? 
-retern val why Array is removed item ???! 
+you can Add view inside screen navigatoer to give icon some + style like postion top for another icon ...
 
+qustion ??
+when make decrese if val < 0 ??
+retern val why Array is removed item ???!
 
-
-* read about Numric input react native * ... 
+- read about Numric input react native \* ...
